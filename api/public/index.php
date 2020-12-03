@@ -1,23 +1,12 @@
 <?php
-
-use App\Http\Action\HomeAction;
+declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$builder = new DI\ContainerBuilder();
-
-$builder->addDefinitions([
-    'config' => [
-        'debug' => (bool)getenv('APP_DEBUG')
-    ]
-]);
-
-$container = $builder->build();
-
+$container = require __DIR__ . '/../config/container.php';
 $app = \Slim\Factory\AppFactory::createFromContainer($container);
 
-$app->addErrorMiddleware($container->get('config')['debug'], true, true);
-
+(require __DIR__ . '/../config/middleware.php')($app, $container);
 (require __DIR__ . '/../config/routes.php')($app);
 
 $app->run();
