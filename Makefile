@@ -1,6 +1,4 @@
 #######################  DOCKER  ##########################
-php-cli:
-	docker-compose run --rm api-php-cli php cli.php ${args}
 init:
 	docker-compose up -d
 down:
@@ -38,6 +36,9 @@ sudo-var:
 	chmod api/var 0755 && find api/var -type d -print0 | xargs -0 chmod 0755 && find api/var -type f -print0 | xargs -0 chmod 0644
 
 
-#######################  APP CLI  ####################
+#######################  CLI  ####################
+php-cli:
+	docker-compose run --rm api-php-cli php cli.php ${arg}
+
 app-cli:
-	docker-compose run --rm api-php-cli bin/app.php ${arg}
+	docker-compose run --rm api-php-cli php bin/app.php ${arg}
