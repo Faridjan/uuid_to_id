@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
+/**
+ * @var \Psr\Container\ContainerInterface $container
+ */
+$container = require __DIR__ . '/../config/container.php';
+
 $cli = new \Symfony\Component\Console\Application('Console');
 
-$cli->add(new \App\Console\HelloCommand());
+$commands = $container->get('config')['console']['commands'];
+foreach ($commands as $command) {
+    $cli->add($container->get($command));
+}
 
 $cli->run();

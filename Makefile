@@ -41,4 +41,4 @@ php-cli:
 	docker-compose run --rm api-php-cli php cli.php ${arg}
 
 app-cli:
-	docker-compose run --rm api-php-cli php bin/app.php ${arg}
+	docker-compose run --rm api-php-cli php bin/app.php --ansi ${arg}
