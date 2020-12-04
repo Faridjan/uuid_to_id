@@ -18,22 +18,25 @@ composer-u:
 	docker-compose run --rm api-php-cli composer update
 
 composer-rq:
-	docker-compose run --rm api-php-cli composer require ${arg} ${dev}
+	docker-compose run --rm api-php-cli composer require ${arg}
 
 composer-rm:
 	docker-compose run --rm api-php-cli composer remove ${arg}
 
 
-#######################  PRETTY  ####################
-phpcbf:
-	docker-compose run --rm api-php-cli vendor/bin/phpcbf src
-phpcs:
-	docker-compose run --rm api-php-cli vendor/bin/phpcs src
+#######################  CODE STYLE | LINT | ANALYZE  ####################
+api-lint:
+	docker-compose run --rm api-php-cli vendor/bin/phplint
+	docker-compose run --rm api-php-cli vendor/bin/phpcs
+cs-fix:
+	docker-compose run --rm api-php-cli vendor/bin/phpcbf
+api-analyze:
+	docker-compose run --rm api-php-cli vendor/bin/psalm
 
 
 #######################  BASH COMMANDS  ####################
 sudo-var:
-	chmod api/var 0755 && find api/var -type d -print0 | xargs -0 chmod 0755 && find api/var -type f -print0 | xargs -0 chmod 0644
+	sudo find api/var -type d -print0 | xargs -0 chmod 0755 && find api/var -type f -print0 | xargs -0 chmod 0644
 
 
 #######################  CLI  ####################

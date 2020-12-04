@@ -1,6 +1,5 @@
 <?php
 
-
 return static function (\Psr\Container\ContainerInterface $container) {
     $app = \Slim\Factory\AppFactory::createFromContainer($container);
 
