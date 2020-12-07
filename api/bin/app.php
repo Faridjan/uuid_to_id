@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
+use Symfony\Component\Console\Command\Command;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 /**
@@ -18,12 +22,16 @@ $cli = new \Symfony\Component\Console\Application('Console');
  */
 $commands = $container->get('config')['console']['commands'];
 
-$entityManager = $container->get(\Doctrine\ORM\EntityManagerInterface::class);
-$cli->getHelperSet()->set(new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($entityManager), 'em');
+/** @var EntityManagerInterface $entityManager */
+$entityManager = $container->get(EntityManagerInterface::class);
+
+$cli->getHelperSet()->set(new EntityManagerHelper($entityManager), 'em');
 
 
-foreach ($commands as $commandName) {
-    $cli->add($container->get($commandName));
+foreach ($commands as $name) {
+    /** @var Command $command */
+    $command = $container->get($name);
+    $cli->add($command);
 }
 
 $cli->run();

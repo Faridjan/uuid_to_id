@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\FilesystemCache;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
+use Psr\Container\ContainerInterface;
 
 
 return [
-    \Doctrine\ORM\EntityManagerInterface::class => function (\Psr\Container\ContainerInterface $container) {
-        $settings = $container->get('config')['doctrine'];
-
+    EntityManagerInterface::class => function (ContainerInterface $container) {
         /**
          * @psalm-suppress MixedArrayAccess
          * @psalm-var array{
@@ -23,6 +25,8 @@ return [
          * } $settings
          */
 
+        $settings = $container->get('config')['doctrine'];
+
         $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
             $settings['metadata_dirs'],
             $settings['dev_mode'],
@@ -31,9 +35,9 @@ return [
             false
         );
 
-        $config->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
+        $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
-        return \Doctrine\ORM\EntityManager::create(
+        return EntityManager::create(
             $settings['connection'],
             $config,
         );

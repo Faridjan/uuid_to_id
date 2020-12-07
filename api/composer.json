@@ -1,6 +1,6 @@
 {
-  "description": "My Framework based from PSR",
-  "name": "faridjan/my_framework",
+  "description": "Transformation UUID to ID",
+  "name": "faridjan/uuid_to_id",
   "minimum-stability": "stable",
   "license": "proprietary",
   "config": {

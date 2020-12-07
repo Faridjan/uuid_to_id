@@ -1,5 +1,11 @@
 <?php
 
-return static function (\Slim\App $app, \Psr\Container\ContainerInterface $container) {
-    $app->addErrorMiddleware($container->get('config')['debug'], true, true);
+use Psr\Container\ContainerInterface;
+use Slim\App;
+
+return static function (App $app, ContainerInterface $container) {
+    /** @psalm-var array{debug:bool} */
+    $config = $container->get('config');
+
+    $app->addErrorMiddleware($config['debug'], true, true);
 };
