@@ -7,10 +7,14 @@ namespace Test\Unit\Http;
 use App\Http\JsonResponse;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use function DI\string;
 
 
 class JsonResponseTest extends TestCase
 {
+    /**
+     * @throws \JsonException
+     */
     public function testWithCode(): void
     {
         $response = new JsonResponse(12, 201);
@@ -24,8 +28,9 @@ class JsonResponseTest extends TestCase
      * @dataProvider getCases
      * @param mixed $source
      * @param mixed $expect
+     * @throws \JsonException
      */
-    public function testResponse($source, $expect)
+    public function testResponse($source, $expect): void
     {
         $response = new JsonResponse($source);
 
@@ -37,7 +42,7 @@ class JsonResponseTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function getCases()
+    public function getCases(): array
     {
         $object = new stdClass();
         $object->str = 'value';

@@ -1,7 +1,10 @@
 <?php
 
-return static function (\Psr\Container\ContainerInterface $container) {
-    $app = \Slim\Factory\AppFactory::createFromContainer($container);
+use Psr\Container\ContainerInterface;
+use Slim\Factory\AppFactory;
+
+return static function (ContainerInterface $container) {
+    $app = AppFactory::createFromContainer($container);
 
     (require __DIR__ . '/../config/middleware.php')($app, $container);
     (require __DIR__ . '/../config/routes.php')($app);

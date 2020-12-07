@@ -24,7 +24,7 @@ composer-rm:
 	docker-compose run --rm api-php-cli composer remove ${arg}
 
 
-#######################  CODE STYLE | LINT | ANALYZE  ####################
+#######################  CODE STYLE  ####################
 lint:
 	docker-compose run --rm api-php-cli vendor/bin/phplint
 	docker-compose run --rm api-php-cli vendor/bin/phpcs
@@ -32,6 +32,12 @@ cs-fix:
 	docker-compose run --rm api-php-cli vendor/bin/phpcbf
 psalm:
 	docker-compose run --rm api-php-cli vendor/bin/psalm
+
+#######################  TESTs  ####################
+phpunit:
+	docker-compose run --rm api-php-cli vendor/bin/phpunit --color=always ${arg}
+phpunit-functional:
+	docker-compose run --rm api-php-cli vendor/bin/phpunit --color=always --coverage-html var/coverage --testsuite=functional ${arg}
 
 
 #######################  BASH COMMANDS  ####################
