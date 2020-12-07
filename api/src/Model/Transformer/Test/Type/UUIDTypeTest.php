@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Model\Transformer\Test\Type;
 
 use App\Model\Transformer\Type\UUIDType;

@@ -32,5 +32,4 @@ class UUIDType
 
         return false;
     }
-
 }
