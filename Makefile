@@ -33,9 +33,12 @@ cs-fix:
 psalm:
 	docker-compose run --rm api-php-cli vendor/bin/psalm
 
+
 #######################  TESTs  ####################
+test:
+	docker-compose run --rm api-php-cli vendor/bin/phpunit --color=always --coverage-html var/coverage ${arg}
 phpunit:
-	docker-compose run --rm api-php-cli vendor/bin/phpunit --color=always ${arg}
+	docker-compose run --rm api-php-cli vendor/bin/phpunit --color=always --coverage-html var/coverage --testsuite=unit ${arg}
 phpunit-functional:
 	docker-compose run --rm api-php-cli vendor/bin/phpunit --color=always --coverage-html var/coverage --testsuite=functional ${arg}
 
