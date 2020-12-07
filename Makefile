@@ -25,12 +25,12 @@ composer-rm:
 
 
 #######################  CODE STYLE | LINT | ANALYZE  ####################
-api-lint:
+lint:
 	docker-compose run --rm api-php-cli vendor/bin/phplint
 	docker-compose run --rm api-php-cli vendor/bin/phpcs
 cs-fix:
 	docker-compose run --rm api-php-cli vendor/bin/phpcbf
-api-analyze:
+psalm:
 	docker-compose run --rm api-php-cli vendor/bin/psalm
 
 
