@@ -27,8 +27,7 @@ return [
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],
-//            $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
-            new ArrayCache(),
+            $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
             false
         );
 
@@ -41,9 +40,8 @@ return [
     },
     'config' => [
         'doctrine' => [
-            'dev_mode' => true,
-//            'cache_dir' => __DIR__ . '/../../var/cache/doctrine/cache',
-            'cache_dir' => null,
+            'dev_mode' => false,
+            'cache_dir' => __DIR__ . '/../../var/cache/doctrine/cache',
             'proxy_dir' => __DIR__ . '/../../var/cache/doctrine/proxy',
             'connection' => [
                 'driver' => 'pdo_pgsql',
