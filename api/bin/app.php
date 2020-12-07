@@ -11,9 +11,19 @@ $container = require __DIR__ . '/../config/container.php';
 
 $cli = new \Symfony\Component\Console\Application('Console');
 
+
+/**
+ * @var string[] $commands
+ * @psalm-suppress MixedArrayAccess
+ */
 $commands = $container->get('config')['console']['commands'];
-foreach ($commands as $command) {
-    $cli->add($container->get($command));
+
+$entityManager = $container->get(\Doctrine\ORM\EntityManagerInterface::class);
+$cli->getHelperSet()->set(new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($entityManager), 'em');
+
+
+foreach ($commands as $commandName) {
+    $cli->add($container->get($commandName));
 }
 
 $cli->run();

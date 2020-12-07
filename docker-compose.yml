@@ -36,9 +36,13 @@ services:
       dockerfile: development/php-cli/Dockerfile
     volumes:
       - ./api:/app
-    # environment:
-    #     APP_ENV: dev
-    #     APP_DEBUG: 1
+    environment:
+      DB_HOST: api-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
+      APP_ENV: dev
+      APP_DEBUG: 1
 
   api-postgres:
     image: postgres:13.1-alpine

@@ -1,19 +1,35 @@
 <?php
+declare(strict_types=1);
+
+
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\FilesystemCache;
 
 
 return [
     \Doctrine\ORM\EntityManagerInterface::class => function (\Psr\Container\ContainerInterface $container) {
         $settings = $container->get('config')['doctrine'];
 
+        /**
+         * @psalm-suppress MixedArrayAccess
+         * @psalm-var array{
+         *     metadata_dirs:array,
+         *     dev_mode:bool,
+         *     proxy_dir:string,
+         *     cache_dir:?string,
+         *     types:array<string,string>,
+         *     subscribers:string[],
+         *     connection:array
+         * } $settings
+         */
+
         $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],
-            $settings['cache_dir']
-                ?
-                new \Doctrine\Common\Cache\FilesystemCache($settings['cache_dir'])
-                :
-                new \Doctrine\Common\Cache\ArrayCache(),
+//            $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
+            new ArrayCache(),
+            false
         );
 
         $config->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
@@ -25,15 +41,16 @@ return [
     },
     'config' => [
         'doctrine' => [
-            'dev_mode' => false,
-            'cache_dir' => __DIR__ . '/../../var/cache/doctrine/cache',
+            'dev_mode' => true,
+//            'cache_dir' => __DIR__ . '/../../var/cache/doctrine/cache',
+            'cache_dir' => null,
             'proxy_dir' => __DIR__ . '/../../var/cache/doctrine/proxy',
             'connection' => [
                 'driver' => 'pdo_pgsql',
-                'host' => 'api-postgres',
-                'user' => getenv('POSTGRES_USER'),
-                'password' => getenv('POSTGRES_PASSWORD'),
-                'dbname' => getenv('POSTGRES_DB'),
+                'host' => getenv('DB_HOST'),
+                'user' => getenv('DB_USER'),
+                'password' => getenv('DB_PASSWORD'),
+                'dbname' => getenv('DB_NAME'),
                 'charset' => 'utf-8'
             ],
             'metadata_dirs' => []
