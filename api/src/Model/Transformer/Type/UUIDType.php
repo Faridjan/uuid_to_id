@@ -32,4 +32,9 @@ class UUIDType
 
         return false;
     }
+
+    public function __toString(): string
+    {
+        return $this->value;
+    }
 }

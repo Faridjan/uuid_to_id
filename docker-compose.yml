@@ -23,6 +23,10 @@ services:
       context: api/docker
       dockerfile: development/php-fpm/Dockerfile
     environment:
+      DB_HOST: api-postgres
+      DB_USER: app
+      DB_PASSWORD: secret
+      DB_NAME: app
       APP_ENV: dev
       APP_DEBUG: 1
       PHP_IDE_CONFIG: serverName=API

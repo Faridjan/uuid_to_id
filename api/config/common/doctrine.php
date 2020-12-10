@@ -2,45 +2,13 @@
 
 declare(strict_types=1);
 
-use Doctrine\Common\Cache\ArrayCache;
-use Doctrine\Common\Cache\FilesystemCache;
-use Doctrine\ORM\EntityManager;
+use App\Infrastructure\Doctrine\Factory\EntityManagerFactory;
+use App\Infrastructure\Doctrine\Type\Transformer\IdTypeDb;
+use App\Infrastructure\Doctrine\Type\Transformer\UUIDTypeDb;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
-use Psr\Container\ContainerInterface;
 
 return [
-    EntityManagerInterface::class => function (ContainerInterface $container) {
-        /**
-         * @psalm-suppress MixedArrayAccess
-         * @psalm-var array{
-         *     metadata_dirs:array,
-         *     dev_mode:bool,
-         *     proxy_dir:string,
-         *     cache_dir:?string,
-         *     types:array<string,string>,
-         *     subscribers:string[],
-         *     connection:array
-         * } $settings
-         */
-
-        $settings = $container->get('config')['doctrine'];
-
-        $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
-            $settings['metadata_dirs'],
-            $settings['dev_mode'],
-            $settings['proxy_dir'],
-            $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
-            false
-        );
-
-        $config->setNamingStrategy(new UnderscoreNamingStrategy());
-
-        return EntityManager::create(
-            $settings['connection'],
-            $config,
-        );
-    },
+    EntityManagerInterface::class => Di\factory(EntityManagerFactory::class),
     'config' => [
         'doctrine' => [
             'dev_mode' => false,
@@ -52,10 +20,17 @@ return [
                 'user' => getenv('DB_USER'),
                 'password' => getenv('DB_PASSWORD'),
                 'dbname' => getenv('DB_NAME'),
-                'charset' => 'utf-8'
+                'charset' => 'utf8'
             ],
-            'metadata_dirs' => []
+            'subscribers' => [],
+            'metadata_dirs' => [
+                __DIR__ . '/../../src/Model/Transformer/Entity/GoodsTransformer',
+                __DIR__ . '/../../src/Model/Transformer/Entity/UserTransformer'
+            ],
+            'type' => [
+                IdTypeDb::NAME => IdTypeDb::class,
+                UUIDTypeDb::NAME => UUIDTypeDb::class,
+            ]
         ]
     ]
-
 ];
