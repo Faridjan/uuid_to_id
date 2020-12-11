@@ -6,32 +6,31 @@ declare(strict_types=1);
 namespace Test\Functional\Fixture\Transformer;
 
 
-use App\Model\Transformer\Entity\UserTransformer\UserTransformer;
+use App\Model\Transformer\Entity\GoodsTransformer\GoodsTransformer;
 use App\Model\Transformer\Type\UUIDType;
 use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
-use Ramsey\Uuid\Uuid;
 
-class UserTransformerFixture extends AbstractFixture
+class GoodsTransformerFixture extends AbstractFixture
 {
-    public const UUID_1 = '745f6574-62d5-4ed2-b55c-8dfb1984c55e';
-    public const UUID_2 = '092f422d-c1c5-40d2-ac40-ef6b74313c7e';
+    public const UUID_1 = 'f9714109-1dd0-4cef-a815-c8333f9a8fdb';
+    public const UUID_2 = 'c9457425-007c-44e5-9577-6c20d5e4c19f';
 
     public function load(ObjectManager $manager): void
     {
-        $user_transformer_1 = UserTransformer::createFromUUID(
+        $goods_transformer_1 = GoodsTransformer::createFromUUID(
             new UUIDType(self::UUID_1),
             new DateTimeImmutable()
         );
 
-        $user_transformer_2 = UserTransformer::createFromUUID(
+        $goods_transformer_2 = GoodsTransformer::createFromUUID(
             new UUIDType(self::UUID_2),
             new DateTimeImmutable()
         );
 
-        $manager->persist($user_transformer_1);
-        $manager->persist($user_transformer_2);
+        $manager->persist($goods_transformer_1);
+        $manager->persist($goods_transformer_2);
 
         $manager->flush();
     }

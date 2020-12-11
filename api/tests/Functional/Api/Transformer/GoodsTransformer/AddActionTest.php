@@ -3,15 +3,17 @@
 declare(strict_types=1);
 
 
-namespace Test\Functional;
+namespace Test\Functional\Api\Transformer\GoodsTransformer;
 
 
 use Ramsey\Uuid\Uuid;
+use Test\Functional\Fixture\Transformer\GoodsTransformerFixture;
 use Test\Functional\Fixture\Transformer\UserTransformerFixture;
+use Test\Functional\WebTestCase;
 
 class AddActionTest extends WebTestCase
 {
-    private string $url = '/user_transformer/add';
+    private string $url = '/goods_transformer/add';
 
     public function setUp(): void
     {
@@ -19,7 +21,7 @@ class AddActionTest extends WebTestCase
 
         $this->loadFixtures(
             [
-                UserTransformerFixture::class
+                GoodsTransformerFixture::class
             ]
         );
     }
@@ -45,13 +47,13 @@ class AddActionTest extends WebTestCase
      */
     public function testAlreadyExist(): void
     {
-        $uuid = UserTransformerFixture::UUID_1;
+        $uuid = GoodsTransformerFixture::UUID_1;
 
         $response = $this->app()->handle(self::json('POST', $this->url, ['uuid' => $uuid]));
         $data = json_decode($response->getBody()->getContents(), true);
 
         self::assertEquals(409, $response->getStatusCode());
-        self::assertEquals('User Transformer with this UUID already exists.', $data['message']);
+        self::assertEquals('Goods Transformer with this UUID already exists.', $data['message']);
     }
 
     public function testUrlNotFound(): void
@@ -68,7 +70,7 @@ class AddActionTest extends WebTestCase
      */
     public function testInvalidUud(): void
     {
-        $uuid = UserTransformerFixture::UUID_1 . '__invalid__';
+        $uuid = GoodsTransformerFixture::UUID_1 . '__invalid__';
 
         $response = $this->app()->handle(self::json('POST', $this->url, ['uuid' => $uuid]));
         $data = json_decode($response->getBody()->getContents(), true);

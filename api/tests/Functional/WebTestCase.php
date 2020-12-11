@@ -78,6 +78,7 @@ class WebTestCase extends TestCase
 
         $em->getConnection()->close();
     }
+
     protected function getFixture($name)
     {
         if (!array_key_exists($name, $this->fixtures)) {
@@ -85,6 +86,7 @@ class WebTestCase extends TestCase
         }
         return $this->fixtures[$name];
     }
+
     protected function dbPurge()
     {
         /** @var ContainerInterface $container */

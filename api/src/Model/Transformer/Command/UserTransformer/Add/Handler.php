@@ -8,6 +8,7 @@ use App\Flusher\Flusher;
 use App\Model\Transformer\Entity\UserTransformer\UserTransformer;
 use App\Model\Transformer\Entity\UserTransformer\UserTransformerRepository;
 use App\Model\Transformer\Type\UUIDType;
+use DateTimeImmutable;
 use DomainException;
 
 class Handler
@@ -31,7 +32,7 @@ class Handler
             throw new DomainException('User Transformer with this UUID already exists.');
         }
 
-        $entity = UserTransformer::createFromUUID($uuid);
+        $entity = UserTransformer::createFromUUID($uuid, new DateTimeImmutable());
 
         $this->repository->add($entity);
 

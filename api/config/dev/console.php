@@ -33,7 +33,8 @@ return [
                 GenerateCommand::class
             ],
             'fixtures_paths' => [
-                __DIR__ . '/../../tests/Functional/Fixture/Transformer',
+                __DIR__ . '/../../tests/Functional/Api/Transformer/GoodsTransformer',
+                __DIR__ . '/../../tests/Functional/Api/Transformer/UserTransformer',
             ]
         ]
     ]

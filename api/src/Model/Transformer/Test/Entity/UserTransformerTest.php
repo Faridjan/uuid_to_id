@@ -8,6 +8,7 @@ namespace App\Model\Transformer\Test\Entity;
 
 use App\Model\Transformer\Entity\UserTransformer\UserTransformer;
 use App\Model\Transformer\Type\UUIDType;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use TypeError;
@@ -18,7 +19,7 @@ class UserTransformerTest extends TestCase
     {
         $UUIDType = new UUIDType(Uuid::uuid4()->toString());
 
-        $userTransformer = UserTransformer::createFromUUID($UUIDType);
+        $userTransformer = UserTransformer::createFromUUID($UUIDType, new DateTimeImmutable());
 
         self::assertTrue($userTransformer instanceof UserTransformer);
         self::assertTrue($userTransformer->getUuid() instanceof UUIDType);
@@ -29,7 +30,7 @@ class UserTransformerTest extends TestCase
     {
         $UUIDType = new UUIDType(Uuid::uuid4()->toString());
 
-        $userTransformer = UserTransformer::createFromUUID($UUIDType);
+        $userTransformer = UserTransformer::createFromUUID($UUIDType, new DateTimeImmutable());
 
         self::assertNull($userTransformer->getId());
     }
@@ -37,6 +38,6 @@ class UserTransformerTest extends TestCase
     public function testEmptyUUIDValue(): void
     {
         $this->expectException(TypeError::class);
-        UserTransformer::createFromUUID(null);
+        UserTransformer::createFromUUID(null, new DateTimeImmutable());
     }
 }

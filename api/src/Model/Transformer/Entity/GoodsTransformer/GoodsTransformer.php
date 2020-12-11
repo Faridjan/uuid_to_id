@@ -7,6 +7,7 @@ namespace App\Model\Transformer\Entity\GoodsTransformer;
 use App\Model\Transformer\Type\IdType;
 use App\Model\Transformer\Type\UUIDType;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeImmutable;
 
 /**
  * @ORM\Entity
@@ -26,14 +27,21 @@ class GoodsTransformer
      */
     private UUIDType $uuid;
 
-    private function __construct(UUIDType $uuid)
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     * @param DateTimeImmutable $createdAt
+     */
+    private DateTimeImmutable $createdAt;
+
+    private function __construct(UUIDType $uuid, DateTimeImmutable $createdAt)
     {
         $this->uuid = $uuid;
+        $this->createdAt = $createdAt;
     }
 
-    public static function createFromUUID(UUIDType $uuid): self
+    public static function createFromUUID(UUIDType $uuid, DateTimeImmutable $createdAt): self
     {
-        return new self($uuid);
+        return new self($uuid, $createdAt);
     }
 
     /**
@@ -47,5 +55,13 @@ class GoodsTransformer
     public function getUuid(): UUIDType
     {
         return $this->uuid;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getCreateAt(): DateTimeImmutable
+    {
+        return $this->createAt;
     }
 }
