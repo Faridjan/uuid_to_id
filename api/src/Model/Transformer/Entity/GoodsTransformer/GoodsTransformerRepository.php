@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Model\Transformer\Entity\GoodsTransformer;
 
 use App\Model\Transformer\Type\UUIDType;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use DomainException;
 
 class GoodsTransformerRepository
 {
@@ -40,5 +42,20 @@ class GoodsTransformerRepository
                 ->setParameter(':uuid', $uuid)
                 ->getQuery()
                 ->getSingleScalarResult() > 0;
+    }
+
+    /**
+     * @param UUIDType $uuid
+     * @param DateTimeImmutable $cratedAt
+     * @return array
+     */
+    public function getByUUID(UUIDType $uuid): GoodsTransformer
+    {
+        if (!$goodsTransformer = $this->repository->findOneBy(['uuid' => $uuid->getValue()])) {
+            throw new DomainException('The Goods Transformer not found.');
+        }
+
+        /** @var  GoodsTransformer $goodsTransformer */
+        return $goodsTransformer;
     }
 }

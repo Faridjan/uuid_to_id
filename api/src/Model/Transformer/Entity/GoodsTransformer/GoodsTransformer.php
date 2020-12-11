@@ -60,8 +60,8 @@ class GoodsTransformer
     /**
      * @return DateTimeImmutable
      */
-    public function getCreateAt(): DateTimeImmutable
+    public function getCreatedAt(): DateTimeImmutable
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 }

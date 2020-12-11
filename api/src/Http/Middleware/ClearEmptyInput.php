@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace App\Middleware;
+namespace App\Http\Middleware;
 
 
 use Psr\Http\Message\ResponseInterface;
@@ -16,14 +16,35 @@ class ClearEmptyInput implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $request = $request
-            ->withParsedBody(self::filterString($request->getParsedBody()));
+            ->withParsedBody(self::filterStrings($request->getParsedBody()));
 
         return $handler->handle($request);
     }
 
-    private static function filterString($items)
+    /**
+     * @param null|array|object $items
+     * @return null|array|object
+     */
+    private static function filterStrings($items)
     {
         if (!is_array($items)) {
+            return $items;
         }
+
+        $result = [];
+
+        /**
+         * @var string $key
+         * @var null|string|object $item
+         */
+        foreach ($items as $key => $item) {
+            if (is_string($item)) {
+                $result[$key] = trim($item);
+            } else {
+                $result[$key] = self::filterStrings($item);
+            }
+        }
+
+        return $result;
     }
 }

@@ -11,10 +11,16 @@ use Slim\Middleware\ErrorMiddleware;
 
 return [
     ErrorMiddleware::class => static function (ContainerInterface $container): ErrorMiddleware {
+        /** @var CallableResolverInterface $callableResolver */
         $callableResolver = $container->get(CallableResolverInterface::class);
 
+        /** @var ResponseFactoryInterface $responseFactory */
         $responseFactory = $container->get(ResponseFactoryInterface::class);
 
+        /**
+         * @psalm-suppress MixedArray
+         * @psalm-var array{} $config
+         */
         $config = $container->get('config')['errors'];
 
         $middleware = new ErrorMiddleware(

@@ -9,6 +9,7 @@
   "require": {
     "php": ">=7.4.0",
     "ext-json": "*",
+    "akrabat/ip-address-middleware": "^2.0",
     "doctrine/migrations": "2.3.1",
     "doctrine/orm": "2.7.5",
     "laminas/laminas-config-aggregator": "^1.4",

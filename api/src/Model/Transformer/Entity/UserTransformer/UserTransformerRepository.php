@@ -8,6 +8,7 @@ namespace App\Model\Transformer\Entity\UserTransformer;
 use App\Model\Transformer\Type\UUIDType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use DomainException;
 
 class UserTransformerRepository
 {
@@ -41,4 +42,15 @@ class UserTransformerRepository
                 ->getQuery()
                 ->getSingleScalarResult() > 0;
     }
+
+    public function getByUUID(UUIDType $uuid): UserTransformer
+    {
+        if (!$userTransformer = $this->repository->findOneBy(['uuid' => $uuid->getValue()])) {
+            throw new DomainException('The User Transformer not found.');
+        }
+
+        /** @var UserTransformer $userTransformer */
+        return $userTransformer;
+    }
+
 }
