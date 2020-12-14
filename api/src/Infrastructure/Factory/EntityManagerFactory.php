@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace App\Infrastructure\Doctrine\Factory;
+namespace App\Infrastructure\Factory;
 
 
 use Doctrine\Common\Cache\ArrayCache;
@@ -12,6 +12,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
+use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 
 class EntityManagerFactory
@@ -39,7 +40,7 @@ class EntityManagerFactory
 
         $settings = $container->get('config')['doctrine'];
 
-        $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
+        $config = Setup::createAnnotationMetadataConfiguration(
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],

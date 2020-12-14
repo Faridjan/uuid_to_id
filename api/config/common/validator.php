@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Doctrine\Factory\ValidatorFactory;
+use App\Infrastructure\Factory\ValidatorFactory;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 return [

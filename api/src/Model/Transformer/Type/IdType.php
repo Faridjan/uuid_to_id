@@ -6,8 +6,6 @@ namespace App\Model\Transformer\Type;
 
 use Webmozart\Assert\Assert;
 
-use function DI\string;
-
 class IdType
 {
     private int $value;

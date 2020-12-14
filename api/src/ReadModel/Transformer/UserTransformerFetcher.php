@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ReadModel\Transformer;
 
-use App\Http\Action\Transformer\UserTransformer\FormatHelper;
+use App\Helper\FormatHelper;
 use App\Model\Transformer\Entity\UserTransformer\UserTransformer;
 use App\Model\Transformer\Entity\UserTransformer\UserTransformerRepository;
 use App\Model\Transformer\Type\UUIDType;

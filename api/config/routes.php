@@ -15,6 +15,6 @@ return static function (App $app) {
     $app->get('/id/goods', GoodsTransformerAction::class);
     $app->get('/id/user', UserTransformerAction::class);
 
-    $app->post('/goods_transformer/add', GoodsAddAction::class);
-    $app->post('/user_transformer/add', UserAddAction::class);
+    $app->post('/add/goods', GoodsAddAction::class);
+    $app->post('/add/user', UserAddAction::class);
 };

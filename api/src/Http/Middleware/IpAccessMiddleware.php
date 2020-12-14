@@ -5,14 +5,11 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-
-use App\Http\EmptyResponse;
 use App\Http\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 /**
  * Class IpAccessMiddleware
@@ -37,6 +34,7 @@ class IpAccessMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
 //        $clientIP = $request->getServerParams()['REMOTE_ADDR'];
+        /** @var ?string $clientIP */
         $clientIP = $request->getAttribute('ip_address');
 
 

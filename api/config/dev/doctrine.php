@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Doctrine\FixDefaultSchemaSubscriber;
-use App\Infrastructure\Doctrine\Factory\DiffCommandFactory;
+use App\Infrastructure\Factory\DiffCommandFactory;
 use Doctrine\Migrations\Tools\Console\Command\DiffCommand;
 
 return [

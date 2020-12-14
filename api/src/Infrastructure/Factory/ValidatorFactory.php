@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace App\Infrastructure\Doctrine\Factory;
+namespace App\Infrastructure\Factory;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Validator\Validation;

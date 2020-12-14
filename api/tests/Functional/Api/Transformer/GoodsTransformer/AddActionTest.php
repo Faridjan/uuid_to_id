@@ -13,7 +13,7 @@ use Test\Functional\WebTestCase;
 
 class AddActionTest extends WebTestCase
 {
-    private string $url = '/goods_transformer/add';
+    private string $url = '/add/goods';
 
     public function setUp(): void
     {

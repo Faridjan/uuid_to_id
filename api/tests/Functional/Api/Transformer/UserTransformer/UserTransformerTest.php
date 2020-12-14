@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Test\Functional\Api\Transformer\UserTransformer;
 
 
-use App\Http\Action\Transformer\UserTransformer\FormatHelper;
+use App\Helper\FormatHelper;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 use Test\Functional\Fixture\Transformer\UserTransformerFixture;

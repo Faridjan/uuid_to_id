@@ -31,6 +31,7 @@ class AddAction implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /** @psalm-var array{uuid:?string} $data */
         $data = $request->getParsedBody();
 
         $uuid = $data['uuid'] ?? '';

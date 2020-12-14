@@ -39,6 +39,7 @@ class FixturesLoadCommand extends Command
 
         $loader = new Loader();
 
+        /** @var string $path */
         foreach ($this->paths as $path) {
             $loader->loadFromDirectory($path);
         }

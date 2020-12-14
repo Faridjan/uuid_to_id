@@ -11,7 +11,6 @@ use App\Model\Transformer\Type\UUIDType;
 use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
-use Ramsey\Uuid\Uuid;
 
 class UserTransformerFixture extends AbstractFixture
 {

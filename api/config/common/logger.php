@@ -12,6 +12,11 @@ return [
         function (ContainerInterface $container) {
             /**
              * @psalm-suppress MixedArrayAccess
+             * @psalm-var array{
+             *      stderr:bool,
+             *      file?:string,
+             *      debug:bool
+             * } $config
              */
             $config = $container->get('config')['logger'];
 

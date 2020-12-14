@@ -18,8 +18,11 @@ return [
         $responseFactory = $container->get(ResponseFactoryInterface::class);
 
         /**
-         * @psalm-suppress MixedArray
-         * @psalm-var array{} $config
+         * @psalm-suppress MixedArrayAccess
+         * @psalm-var array{
+         *      display_details:bool,
+         *      log:bool
+         * } $config
          */
         $config = $container->get('config')['errors'];
 
@@ -31,7 +34,9 @@ return [
             true
         );
 
-
+        /**
+         * @var LoggerInterface $logger
+         */
         $logger = $container->get(LoggerInterface::class);
 
         $middleware->setDefaultErrorHandler(
@@ -40,6 +45,7 @@ return [
             )
         );
 
+        /**  @var ErrorMiddleware $middleware */
         return $middleware;
     },
     'config' => [

@@ -33,6 +33,7 @@ class UserTransformerAction implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /** @psalm-var array{uuid:?string} $data */
         $data = $request->getQueryParams();
 
         $uuid = $data['uuid'] ?? '';

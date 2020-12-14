@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Infrastructure\Doctrine\Factory\EntityManagerFactory;
+use App\Infrastructure\Factory\EntityManagerFactory;
 use App\Infrastructure\Doctrine\Type\Transformer\IdTypeDb;
 use App\Infrastructure\Doctrine\Type\Transformer\UUIDTypeDb;
 use Doctrine\ORM\EntityManagerInterface;

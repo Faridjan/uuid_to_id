@@ -12,13 +12,18 @@ use Psr\Container\ContainerInterface;
 
 return [
     FixturesLoadCommand::class => static function (ContainerInterface $container) {
-        $config = $container->get('config')['console'];
+        /**
+         * @psalm-suppress MixedArrayAccess
+         * @psalm-var array{string} $fixtures
+         */
+        $fixtures = $container->get('config')['console']['fixtures_paths'];
 
+        /** @var EntityManagerInterface $em */
         $em = $container->get(EntityManagerInterface::class);
 
         return new FixturesLoadCommand(
             $em,
-            $config['fixtures_paths']
+            $fixtures
         );
     },
     'config' => [
